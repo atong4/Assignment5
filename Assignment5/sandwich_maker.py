@@ -3,7 +3,12 @@ from flask import request
 
 from flask_sqlalchemy import SQLAlchemy
 
-database_file = "mysql+pymysql://root:rootroot@localhost:3306/sandwich_maker"
+DB_HOST = "localhost"
+DB_NAME = "sandwich_maker"
+DB_USERNAME = "root"
+DB_Password = "rootroot"
+
+database_file = f"mysql+pymysql://{DB_USERNAME}:{DB_Password}@{DB_HOST}:3306/{DB_NAME}"
 
 app = Flask(__name__)
 app.secret_key = "mysecret"
@@ -66,7 +71,7 @@ def update_resource(id):
     return render_template("resources/update.html", data=data)
 
 
-@app.route('/deleteresource/<int:id>/', methods=['GET','POST'])
+@app.route('/deleteresource/<int:id>/', methods=['GET', 'POST'])
 def delete_resource(id):
     if request.method == 'POST':
         resource = Resource.query.filter_by(id=id).first()
@@ -77,7 +82,6 @@ def delete_resource(id):
         return redirect(url_for('resource'))
     data = Resource.query.filter_by(id=id).first()
     return render_template("resources/delete.html", data=data)
-
 
 
 if __name__ == '__main__':

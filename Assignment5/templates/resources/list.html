@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h3>Resource List</h3>
+<hr/>
+{%- for message in get_flashed_messages() %}
+{{ message }}
+{%- endfor %}
+<h3><a href="{{ url_for('home') }}"> Home</a></h3>
+<h3><a href="{{ url_for('add_resource') }}"> Add Resource Item</a></h3>
+
+<table>
+    <thead>
+    <tr>
+        <th>Item</th>
+        <th>Amount</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    {% for resource in resources %}
+    <tr>
+        <td>{{ resource.item }}</td>
+        <td>{{ resource.amount }}</td>
+        <td>
+            <a href="{{ url_for('update_resource',id=resource.id) }}">
+                <button type="button">Update</button>
+            </a>
+            <a href="{{ url_for('delete_resource',id=resource.id) }}">
+                <button type="submit">Delete</button>
+            </a>
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</body>
+</html>
